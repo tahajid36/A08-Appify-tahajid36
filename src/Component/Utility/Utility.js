@@ -13,7 +13,7 @@ const addToInstalledData = (id) => {
     const storedAppData = getStoredApp()
 
     if(storedAppData.includes(id)){
-        alert('already exists')
+       return []
         
 
     }
@@ -26,7 +26,7 @@ const addToInstalledData = (id) => {
 const removeApp = (id) => {
 
     const storedAppData = getStoredApp()
-    const updatedApplist = storedAppData.filter(a=>a.id !== id)
+    const updatedApplist = storedAppData.filter(a=>a !== id)
     localStorage.setItem('AppList', JSON.stringify(updatedApplist))
 
 }

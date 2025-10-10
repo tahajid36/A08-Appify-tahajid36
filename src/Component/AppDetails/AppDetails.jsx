@@ -1,20 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLoaderData, useParams } from "react-router";
 import downloadImg from "/src/assets/icon-downloads.png";
 import ratingsImg from "/src/assets/icon-ratings.png";
 import reviewImg from "/src/assets/icon-review.png";
 import { LineChart, Line, ResponsiveContainer } from "recharts";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
-import { addToInstalledData } from "../Utility/Utility";
+import { addToInstalledData, getStoredApp } from "../Utility/Utility";
 import { ToastContainer, toast } from 'react-toastify';
+import ErrorNotFound from "../Error/ErrorNotFound";
 
 const AppDetails = () => {
   const { id } = useParams();
   const AppData = useLoaderData();
   const AppID = parseInt(id);
   const SingleData = AppData.find((App) => App.id === AppID);
-  const chartData = SingleData.ratings;
+  const chartData = SingleData?.ratings;
   const [buttonState, setButtonState] = useState(false)
+  useEffect(()=>{
+    const installedApp = getStoredApp()
+    const alreadyInstalled = installedApp.some(a=>a==AppID)
+    if(alreadyInstalled){ setButtonState(true)
+    }
+  },[])
 
   const BarChartData = (
 
@@ -35,7 +42,6 @@ const AppDetails = () => {
   )
   
 
-
   const {
     image,
     companyName,
@@ -45,13 +51,21 @@ const AppDetails = () => {
     reviews,
     ratingAvg,
     size,
-  } = SingleData;
+  } = SingleData ||{}
 
  const  notify = () => {toast('Application Installed Succesfully')}
 
  const handleInstall = (id) => {
-    addToInstalledData(id);
+  const installedApp = getStoredApp()
+  const alreadyInstalled = installedApp.some(a=>a.id!==SingleData.id)
+    addToInstalledData(id),
+    setButtonState(alreadyInstalled)
+    
+    
   };
+  if(!SingleData){
+    return <ErrorNotFound></ErrorNotFound>
+  }
   return (
     <div className="mt-[80px] container mx-auto mb-[100px]">
       <div className="flex flex-col md:flex-row items-center">
@@ -84,14 +98,14 @@ const AppDetails = () => {
             </div>
           </div>
           <button
-          disabled={buttonState}
+          disabled={buttonState} 
             onClick={() => {handleInstall(SingleData.id),
-              notify(), setButtonState(true)
+              notify()
               
-            }}
+            }} 
             className="btn btn-wide mt-5 mb-5 text-white bg-[#00D390]"
           >
-            Install Now ({size}MB)
+            {buttonState? 'Installed': `Install Now (${size}MB)`}
           </button>
         </div>
       </div>

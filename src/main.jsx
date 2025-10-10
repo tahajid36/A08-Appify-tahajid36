@@ -5,8 +5,12 @@ import './index.css'
 import { router } from './Component/Routes/Routes';
 
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    
     <RouterProvider router={router} />
+    
+    
   </StrictMode>,
 )

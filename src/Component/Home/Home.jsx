@@ -6,6 +6,7 @@ import AppsSection from '../AppsSection/AppsSection';
 const Home = () => {
     const data = useLoaderData()
     const Data = data.slice(0,8)
+    
     return (
         <div >
            <Banner></Banner>
