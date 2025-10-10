@@ -8,9 +8,9 @@ const App = ({app}) => {
     return (
         <Link to={`/appdetails/${id}`}>
         <div className='p-4'>
-            <div className="card bg-base-100 w-88 shadow-sm">
+            <div className="card mx-auto bg-base-100 shadow-sm">
   <figure>
-    <img className='h-[300px] p-6'
+    <img className='md:h-[300px] p-6'
       src={image}
       alt="app" />  
   </figure>

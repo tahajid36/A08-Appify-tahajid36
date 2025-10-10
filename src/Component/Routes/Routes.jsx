@@ -6,12 +6,13 @@ import Home from "../Home/Home";
 import AllApps from "../AllApps/AllApps";
 import InstalledApps from "../InstalledApps/InstalledApps";
 import AppDetails from "../AppDetails/AppDetails";
+import ErrorNotFound from "../Error/ErrorNotFound";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    Component: Root,
-    errorElement: <Error></Error>,
+    element: <Root></Root>,
+    errorElement:<Error></Error> ,
     children: [
       {
         index: true,
@@ -31,10 +32,17 @@ export const router = createBrowserRouter([
       },
       {
         path: '/appdetails/:id',
+        
         loader:()=> fetch("/info.json").then(res=>res.json()),
-        Component: AppDetails
+        Component: AppDetails,
+        errorElement:  <ErrorNotFound></ErrorNotFound>
 
       }
     ],
   },
+  {
+    path: '*',
+    
+    element: <Error></Error>
+  }
 ]);

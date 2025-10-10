@@ -15,9 +15,9 @@ const Navbar = () => {
   <button className="btn text-white bg-linear-to-r from-[#632EE3] to-[#9F62F2]"><FaSquareGithub />
   Contribution</button>
   </Link></>
-  const logoLink = <><Link to={'/'}>HERO.IO</Link></>
+  const logoLink = <><Link to={'/'}>APPIFY</Link></>
   return (
-    <div>
+    <div className="container mx-auto">
       <div className="navbar bg-base-100 ">
         <div className="navbar-start">
           <div className="dropdown">
@@ -45,7 +45,7 @@ const Navbar = () => {
              {links}
             </ul>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center gap-3">
             <img className="w-10" src={logoImg} alt="" />
             <p className="text-purple-500">{logoLink}</p>
 

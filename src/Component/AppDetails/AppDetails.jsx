@@ -1,35 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLoaderData, useParams } from "react-router";
 import downloadImg from "/src/assets/icon-downloads.png";
 import ratingsImg from "/src/assets/icon-ratings.png";
 import reviewImg from "/src/assets/icon-review.png";
-import { LineChart, Line } from "recharts";
+import { LineChart, Line, ResponsiveContainer } from "recharts";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 import { addToInstalledData } from "../Utility/Utility";
+import { ToastContainer, toast } from 'react-toastify';
 
 const AppDetails = () => {
   const { id } = useParams();
   const AppData = useLoaderData();
   const AppID = parseInt(id);
-
   const SingleData = AppData.find((App) => App.id === AppID);
-
   const chartData = SingleData.ratings;
+  const [buttonState, setButtonState] = useState(false)
 
-  const renderBarChart = (
+  const BarChartData = (
+
+    <ResponsiveContainer width='100%' height='100%'>
     <BarChart
-      width={800}
-      height={300}
+    
       data={chartData}
       layout="vertical"
-      margin={{ top: 20, right: 30, left: 100, bottom: 20 }}
+      margin={{ top: 20, right: 30, left: 30, bottom: 20 }}
     >
       <XAxis type="number" />
       <YAxis dataKey="name" type="category" reversed />
       <Tooltip />
       <Bar dataKey="count" fill="#FF8811" barSize={25} />
     </BarChart>
-  );
+    </ResponsiveContainer> 
+
+  )
+  
+
 
   const {
     image,
@@ -42,12 +47,14 @@ const AppDetails = () => {
     size,
   } = SingleData;
 
-  const handleInstall = (id) => {
+ const  notify = () => {toast('Application Installed Succesfully')}
+
+ const handleInstall = (id) => {
     addToInstalledData(id);
   };
   return (
-    <div className="mt-[80px] mb-[100px]">
-      <div className="flex ">
+    <div className="mt-[80px] container mx-auto mb-[100px]">
+      <div className="flex flex-col md:flex-row items-center">
         <img className="h-[300px] p-6" src={image} alt="" />
         <div className="">
           <div className="space-y-4">
@@ -77,7 +84,11 @@ const AppDetails = () => {
             </div>
           </div>
           <button
-            onClick={() => handleInstall(SingleData.id)}
+          disabled={buttonState}
+            onClick={() => {handleInstall(SingleData.id),
+              notify(), setButtonState(true)
+              
+            }}
             className="btn btn-wide mt-5 mb-5 text-white bg-[#00D390]"
           >
             Install Now ({size}MB)
@@ -86,13 +97,18 @@ const AppDetails = () => {
       </div>
       <div>
         <h1 className="font-bold text-2xl"> Ratings</h1>
-        {renderBarChart}
+        <div className="h-100">
+        {BarChartData}
+        {/* */}
+        </div>
       </div>
       <div className="space-y-4">
         <h1 className="text-xl font-bold">Description</h1>
         <p>{description}</p>
       </div>
+      <ToastContainer/>
     </div>
+    
   );
 };
 

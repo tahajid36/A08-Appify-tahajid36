@@ -13,12 +13,12 @@ const AppsSection = ({ Data }) => {
   return (
     <div>
       <div className="mt-6 space-y-4">
-        <h1 className="text-6xl text-center font-bold">Trending Apps</h1>
+        <h1 className="text-2xl md:text-6xl text-center font-bold">Trending Apps</h1>
         <p className="text-gray-500 text-center">
           Explore All Trending Apps on the Market developed by us
         </p>
       </div>
-      <div className="grid grid-cols-4 mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-4 container md:mx-auto">
         {Data.map(app=> (<App app={app}></App>))}
       </div>
       <div className="flex justify-center mb-6">
