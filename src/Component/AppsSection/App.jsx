@@ -1,10 +1,12 @@
 import React from 'react';
 import { MdOutlineFileDownload } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
+import { Link } from 'react-router';
 const App = ({app}) => {
-    console.log(app)
-    const {title, image, downloads, ratingAvg } = app
+    
+    const {title, image, id, downloads, ratingAvg } = app
     return (
+        <Link to={`/appdetails/${id}`}>
         <div className='p-4'>
             <div className="card bg-base-100 w-88 shadow-sm">
   <figure>
@@ -24,6 +26,7 @@ const App = ({app}) => {
   </div>
 </div>
         </div>
+        </Link>
     );
 };
 

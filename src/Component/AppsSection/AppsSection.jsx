@@ -3,7 +3,7 @@ import App from "./App";
 import { Link } from "react-router";
 
 const AppsSection = ({ Data }) => {
-  console.log(Data);
+  
   const links = <>
   <Link to={'/allapps'}>
       <button className="btn text-white bg-linear-to-r from-[#632EE3] to-[#9F62F2]">Show All</button>
