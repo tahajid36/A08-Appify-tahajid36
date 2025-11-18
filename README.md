@@ -54,10 +54,10 @@ Appify - https://resonant-banoffee-5088e0.netlify.app/
 
 ```bash
 # Clone the repository
-git clone https://github.com/tahajid36/a08-appify-tahajid36.git
+git clone https://github.com/tahajid36/A08-Appify-tahajid36.git
 
 # Navigate to the project folder
-cd appify
+cd A08-Appify-tahajid36
 
 # Open index.html in your browser
 # You can double-click index.html or serve using Live Server in VSCode
